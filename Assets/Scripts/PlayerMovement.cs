@@ -7,11 +7,11 @@ public class PlayerMovement : MonoBehaviour
 {
     private Vector3 playerVelocity;
     //[SerializeField] private bool touchingGround;
-    [SerializeField] private float playerSpeedWalk = 2.0f;
+    //[SerializeField] private float playerSpeedWalk = 2.0f;
     [SerializeField] private float playerSpeedSwim = 3.0f;
     [SerializeField] private float mouseSensibility = 1.0f;
     [SerializeField] private float jumpForce = 1.0f;
-    [SerializeField] private float gravity = 0; //-9.81
+    [SerializeField] private float gravity = -9.81f;
 
     [SerializeField] private bool swiming;
     private Vector2 movementInput;
@@ -32,11 +32,19 @@ public class PlayerMovement : MonoBehaviour
 
     private Inventory inventory;
 
+    //[Header("Gravity")]
+    //[SerializeField] 
+    private bool isGrounded;
+    [SerializeField] private float moveSpeed = 5f; // Velocidad de movimiento
+    [SerializeField] private float jumpHeight = 2f; // Altura del salto
+    private Vector3 velocity; // Almacena la velocidad del jugador
+
     void Start()
     {
         playerInput = gameObject.GetComponent<PlayerInput>();
         characterController = gameObject.GetComponent<CharacterController>();
         inventory = gameObject.GetComponent<Inventory>();
+        swiming = false;
     }
 
     void Update()
@@ -46,11 +54,19 @@ public class PlayerMovement : MonoBehaviour
         lookInput = playerInput.actions["Look"].ReadValue<Vector2>();
         //Debug.Log("Vect x: " + movementInput.x + "      Vect y: " + movementInput.y);
 
-        Swim();
-        RotateCamera();
         Cursor.lockState = CursorLockMode.Locked;
-
+        RotateCamera();
         SelectedObject();
+
+        if (swiming)
+        {
+            Swim();
+        }
+        else
+        {
+            Walk();
+        }
+
     }
 
     public void SelectedObject()
@@ -108,6 +124,30 @@ public class PlayerMovement : MonoBehaviour
 
     private void Walk()
     {
+        isGrounded = characterController.isGrounded;
+
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f; // Evita acumulación de gravedad cuando está en el suelo
+        }
+
+        // Movimiento horizontal
+
+        Vector3 movement = transform.forward * movementInput.y + transform.right * movementInput.x;
+
+        characterController.Move(movement * moveSpeed * Time.deltaTime);
+
+        // Salto
+        if (playerInput.actions["Jump"].IsPressed() && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // Fórmula para calcular velocidad de salto
+        }
+
+        // Aplicar gravedad
+        velocity.y += gravity * Time.deltaTime;
+
+        // Mover al personaje según la gravedad
+        characterController.Move(velocity * Time.deltaTime);
 
     }
 
