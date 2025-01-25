@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Vector3 playerVelocity;
-    [SerializeField] private bool touchingGround;
+    private Vector3 playerVelocity;
+    //[SerializeField] private bool touchingGround;
     [SerializeField] private float playerSpeedWalk = 2.0f;
     [SerializeField] private float playerSpeedSwim = 3.0f;
     [SerializeField] private float mouseSensibility = 1.0f;
@@ -14,8 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity = 0; //-9.81
 
     [SerializeField] private bool swiming;
-    [SerializeField] private Vector2 movementInput;
-    [SerializeField] private Vector2 lookInput;
+    private Vector2 movementInput;
+    private Vector2 lookInput;
 
     private PlayerInput playerInput;
     private CharacterController characterController;
@@ -23,37 +23,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float XRotation = 0;
     [SerializeField] private float YRotation = 90;
 
+    [SerializeField] private LayerMask InteractableLayer;
+    [SerializeField] private float RangeDetection = 2f;
+    
+    private bool ultimo;
+    private Outline outlineScript;
+    private GameObject lastObject;
+
+    private Inventory inventory;
+
     void Start()
     {
         playerInput = gameObject.GetComponent<PlayerInput>();
         characterController = gameObject.GetComponent<CharacterController>();
+        inventory = gameObject.GetComponent<Inventory>();
     }
 
     void Update()
     {
-        //groundedPlayer = controller.isGrounded;
-        //if (groundedPlayer && playerVelocity.y < 0)
-        //{
-        //    playerVelocity.y = 0f;
-        //}
-        /*
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        controller.Move(move * Time.deltaTime * playerSpeed);
-
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
-
-        // Makes the player jump
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravityValue);
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);*/
-
+        
         movementInput = playerInput.actions["Movement"].ReadValue<Vector2>();
         lookInput = playerInput.actions["Look"].ReadValue<Vector2>();
         //Debug.Log("Vect x: " + movementInput.x + "      Vect y: " + movementInput.y);
@@ -62,15 +50,53 @@ public class PlayerMovement : MonoBehaviour
         RotateCamera();
         Cursor.lockState = CursorLockMode.Locked;
 
+        SelectedObject();
+    }
+
+    public void SelectedObject()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;        
+
+        if (Physics.Raycast(ray, out hit, RangeDetection, InteractableLayer))
+        {
+            GameObject selectedObject = hit.collider.gameObject;
+            lastObject = selectedObject;
+
+            outlineScript = selectedObject.GetComponent<Outline>();
+            outlineScript.enabled = true;
+
+            ultimo = true;
+        }
+        else if(ultimo == true)
+        {
+            ultimo = false;
+            outlineScript.enabled = false;
+
+        }
+
+        if (playerInput.actions["Interact"].WasPressedThisFrame())
+        {
+            if (lastObject.CompareTag("Button"))
+            {
+                InteractButton interactButton = lastObject.GetComponent<InteractButton>();
+                interactButton.OnInteract(inventory.obtainedObjects);
+            }
+            else
+            {
+                Destroy(lastObject);
+                //Debug.Log("Objeto obtenido: " + lastObject.name);
+                inventory.ObtainObjects(lastObject.name);
+            }
+            ultimo = false;
+        }
     }
 
     private void Swim()
     {
-        //transform.Translate((Vector3.forward * movementInput.y + transform.right * movementInput.x) * Time.deltaTime * playerSpeedSwim);
-
+        
         Vector3 movement = transform.forward * movementInput.y + transform.right * movementInput.x;
 
-        //transform.localRotation = Quaternion.Euler(lookInput.y, lookInput.x, 0);
         if (playerInput.actions["Jump"].IsPressed())
         {
             //Debug.Log("Brincando");

@@ -1,0 +1,8 @@
+m Buscar piezas
+d 1 Deberia irme de aqui
+w pe
+d 2 prueba 1
+d 3 prueba 2
+d 1.5 este durara 1.5s
+w but
+m desactivate
