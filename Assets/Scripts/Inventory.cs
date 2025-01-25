@@ -22,7 +22,7 @@ public class Inventory : MonoBehaviour
     public void ObtainObjects(string numObj)
     {
         obtainedObjects.Add(numObj);
-        Debug.Log(numObj);
+        //Debug.Log(numObj);
 
         switch (numObj)
         {

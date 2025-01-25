@@ -1,8 +1,14 @@
 m Buscar piezas
 d 1 Deberia irme de aqui
-w pe
+t 02 
 d 2 prueba 1
 d 3 prueba 2
+a 00 0
+t 02
+d 2 espere
+a 00 1
+a 10 1
 d 1.5 este durara 1.5s
-w but
+w objetos
+d 9 Terminaste
 m desactivate

@@ -11,20 +11,31 @@ public class Oxigen : MonoBehaviour
     [SerializeField] private Slider sliderOxigen;
     [SerializeField] private Health healthPlayer;
 
+    private bool wasting;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         healthPlayer = gameObject.GetComponent<Health>();
+        wasting = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        RestOxigen();
+        if (wasting)
+        {
+            RestOxigen();
+        }
         if (actualOxigen <= 0)
         {
             healthPlayer.Damage();
         }
+    }
+
+    public void ActivateOxigen(bool desicion)
+    {
+        wasting = desicion;
     }
 
     private void RestOxigen()

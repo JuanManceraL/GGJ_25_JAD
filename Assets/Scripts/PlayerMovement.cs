@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (playerInput.actions["Interact"].WasPressedThisFrame())
+        if (playerInput.actions["Interact"].WasPressedThisFrame() && ultimo)
         {
             if (lastObject.CompareTag("Button"))
             {
