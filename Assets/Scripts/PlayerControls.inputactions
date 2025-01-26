@@ -46,7 +46,7 @@
                 {
                     "name": "",
                     "id": "26f7cf7b-db14-4755-871f-1fccba98c7ea",
-                    "path": "",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -122,8 +122,30 @@
                 },
                 {
                     "name": "",
+                    "id": "ca6370db-91e2-4f1c-a2fd-f1e6615b3807",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "cbbacbbb-e84e-42f7-8cd1-83b366e1f45a",
                     "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "NormalizeVector2",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b508d58-dd55-4b51-9e8b-c44fefd40133",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -135,6 +157,17 @@
                     "name": "",
                     "id": "dbec7699-44a9-4867-8261-18920e2fcca1",
                     "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ee28a57-657d-42b0-8656-e90fe08bfd8f",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

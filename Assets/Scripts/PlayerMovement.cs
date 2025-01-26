@@ -40,7 +40,20 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity; // Almacena la velocidad del jugador
     [SerializeField] Oxigen oxigen;
 
-    void Start()
+
+    private float xRotation;
+    [SerializeField] private Transform cameraTransform;
+
+    [Header("Nuevo Movimiento")]
+    [SerializeField] private InputActionAsset PlayerControls;
+
+    private InputAction moveAction;
+    private InputAction lookAction;
+    private Vector2 moveInput;
+    //private Vector2 lookInput;
+    private float verticalRotation;
+
+    void Awake()
     {
         playerInput = gameObject.GetComponent<PlayerInput>();
         characterController = gameObject.GetComponent<CharacterController>();
@@ -48,6 +61,10 @@ public class PlayerMovement : MonoBehaviour
         swiming = false;
 
         oxigen = gameObject.GetComponent<Oxigen>();
+
+        /////////////
+        moveAction = PlayerControls.FindActionMap("Player").FindAction("Movement");
+        lookAction = PlayerControls.FindActionMap("Player").FindAction("Look");
     }
 
     void Update()
@@ -55,9 +72,14 @@ public class PlayerMovement : MonoBehaviour
         
         movementInput = playerInput.actions["Movement"].ReadValue<Vector2>();
         lookInput = playerInput.actions["Look"].ReadValue<Vector2>();
-        //Debug.Log("Vect x: " + movementInput.x + "      Vect y: " + movementInput.y);
+
+
+        //Debug.Log("Mov - Vect x: " + movementInput.x + "      Vect y: " + movementInput.y);
+        //Debug.Log("Look - Vect x: " + lookInput.x + "      Vect y: " + lookInput.y);
 
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         RotateCamera();
         SelectedObject();
 
@@ -158,14 +180,50 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotateCamera()
     {
+        float lookInputX = lookInput.x;
+        float lookInputY = lookInput.y;
+
+        if (Mathf.Abs(lookInput.x) > 1)
+        {
+            lookInputX = lookInput.x * 0.5f;
+            //Debug.Log("Mouse");
+        }
+        if (Mathf.Abs(lookInput.y) > 1)
+        {
+            lookInputY = lookInput.y * 0.5f;
+            //Debug.Log("Mouse");
+        }
+
+
         //Rotacion horizontal
-        YRotation += lookInput.x * mouseSensibility * Time.deltaTime;
+        YRotation += lookInputX * mouseSensibility * Time.deltaTime;
 
         // Rotación vertical de la cámara (eje X)
-        XRotation -= lookInput.y * mouseSensibility * Time.deltaTime;
+        XRotation -= lookInputY * mouseSensibility * Time.deltaTime;
         XRotation = Mathf.Clamp(XRotation, -90f, 90f); // Limitar la rotación vertical entre -90 y 90 grados
 
         // Aplicar la rotación a la cámara
         transform.localRotation = Quaternion.Euler(XRotation, YRotation, 0);
+        
+        /*
+        float mouseX = lookInput.x * mouseSensibility * Time.deltaTime;
+        float mouseY = lookInput.y * mouseSensibility * Time.deltaTime;
+
+        // Rotación vertical (limitar para evitar que la cámara gire demasiado)
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limita la rotación vertical entre -90 y 90 grados
+        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        // Rotación horizontal (rotar el cuerpo del jugador)
+        gameObject.transform.Rotate(Vector3.up * mouseX);
+        */
+        /*
+        float mouseXRotation = lookInput.x * mouseSensibility;
+        transform.Rotate(0, mouseXRotation, 0);
+
+        verticalRotation -= lookInput.y * mouseSensibility;
+        verticalRotation = Mathf.Clamp(XRotation, -90f, 90f);
+        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        */
     }
 }
