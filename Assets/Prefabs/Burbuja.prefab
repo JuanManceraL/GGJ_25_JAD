@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2731445367575127690}
   - component: {fileID: 7061752996637425052}
   - component: {fileID: 7911328365411943422}
+  - component: {fileID: 2666263601763932926}
   m_Layer: 0
   m_Name: Burbuja
   m_TagString: Untagged
@@ -67,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0f663fa074203ab4285e149d33c62fe5, type: 2}
+  - {fileID: 2100000, guid: e99cd7de1a3647d468831fb4e822e560, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -151,3 +152,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2666263601763932926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332192747245385586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.4266643, g: 0.5384234, b: 0.9622642, a: 1}
+  outlineWidth: 3.61
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

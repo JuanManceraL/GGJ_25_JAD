@@ -39,32 +39,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 2f; // Altura del salto
     private Vector3 velocity; // Almacena la velocidad del jugador
     [SerializeField] Oxigen oxigen;
-
-
-    private float xRotation;
     [SerializeField] private Transform cameraTransform;
 
-    [Header("Nuevo Movimiento")]
-    [SerializeField] private InputActionAsset PlayerControls;
+    [Header("Menus")]
+    [SerializeField] private GameObject menuMission;
+    [SerializeField] private GameObject menuInventory;
+    [SerializeField] private GameObject menuPause;
 
-    private InputAction moveAction;
-    private InputAction lookAction;
-    private Vector2 moveInput;
-    //private Vector2 lookInput;
-    private float verticalRotation;
 
     void Awake()
     {
         playerInput = gameObject.GetComponent<PlayerInput>();
         characterController = gameObject.GetComponent<CharacterController>();
         inventory = gameObject.GetComponent<Inventory>();
-        swiming = false;
 
         oxigen = gameObject.GetComponent<Oxigen>();
 
-        /////////////
-        moveAction = PlayerControls.FindActionMap("Player").FindAction("Movement");
-        lookAction = PlayerControls.FindActionMap("Player").FindAction("Look");
     }
 
     void Update()
@@ -83,6 +73,32 @@ public class PlayerMovement : MonoBehaviour
         RotateCamera();
         SelectedObject();
 
+        //Debug.Log(menuMission.activeSelf);
+
+        if (playerInput.actions["Misions"].WasPressedThisFrame())
+        {
+            if (menuMission.activeSelf)
+            {
+                menuMission.SetActive(false);
+            }
+            else
+            {
+                menuMission.SetActive(true);
+            }
+        }
+
+        if (playerInput.actions["Inventory"].WasPressedThisFrame())
+        {
+            if (menuInventory.activeSelf)
+            {
+                menuInventory.SetActive(false);
+            }
+            else
+            {
+                menuInventory.SetActive(true);
+            }
+        }
+
         if (swiming)
         {
             Swim();
@@ -93,6 +109,11 @@ public class PlayerMovement : MonoBehaviour
             Walk();
             oxigen.ActivateOxigen(false);
         }
+
+    }
+
+    private void InvertMissions()
+    {
 
     }
 
@@ -204,26 +225,5 @@ public class PlayerMovement : MonoBehaviour
 
         // Aplicar la rotación a la cámara
         transform.localRotation = Quaternion.Euler(XRotation, YRotation, 0);
-        
-        /*
-        float mouseX = lookInput.x * mouseSensibility * Time.deltaTime;
-        float mouseY = lookInput.y * mouseSensibility * Time.deltaTime;
-
-        // Rotación vertical (limitar para evitar que la cámara gire demasiado)
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limita la rotación vertical entre -90 y 90 grados
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-        // Rotación horizontal (rotar el cuerpo del jugador)
-        gameObject.transform.Rotate(Vector3.up * mouseX);
-        */
-        /*
-        float mouseXRotation = lookInput.x * mouseSensibility;
-        transform.Rotate(0, mouseXRotation, 0);
-
-        verticalRotation -= lookInput.y * mouseSensibility;
-        verticalRotation = Mathf.Clamp(XRotation, -90f, 90f);
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        */
     }
 }

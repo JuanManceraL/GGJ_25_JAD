@@ -1,0 +1,10 @@
+t 08
+d 13 -Asistente- Buenos dias, Capitan. Hemos alcanzado una profundidad de 2,000 metros. Sistemas principales funcionando al 78%. 
+d 10 -Asistente- Anomalias detectadas en el reactor. La nave esta inmovil. Se requiere reparacion inmediata.
+d 5 -Tu- Genial... Justo lo que necesitaba. Que tan grave es?
+d 15 -Asistente- Diagnostico: se necesitan tres componentes para reparar la falla. Estan disponibles en las cercanias, pero tenga cuidado, la visibilidad es limitada.
+d 8 -Tu- Perfecto. Solo sera un paseo rapido, Verdad? Que podria salir mal...
+d 4 -Asistente- Abriendo puertas
+m Ve hacia la salida
+a 01 1
+a 00 1
