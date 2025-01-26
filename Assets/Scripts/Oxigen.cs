@@ -9,7 +9,7 @@ public class Oxigen : MonoBehaviour
     [SerializeField] private float speedDecreaseOxigen;
 
     [SerializeField] private Slider sliderOxigen;
-    [SerializeField] private Health healthPlayer;
+    private Health healthPlayer;
 
     private bool wasting;
 

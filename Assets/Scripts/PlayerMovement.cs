@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f; // Velocidad de movimiento
     [SerializeField] private float jumpHeight = 2f; // Altura del salto
     private Vector3 velocity; // Almacena la velocidad del jugador
+    [SerializeField] Oxigen oxigen;
 
     void Start()
     {
@@ -45,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
         characterController = gameObject.GetComponent<CharacterController>();
         inventory = gameObject.GetComponent<Inventory>();
         swiming = false;
+
+        oxigen = gameObject.GetComponent<Oxigen>();
     }
 
     void Update()
@@ -61,10 +64,12 @@ public class PlayerMovement : MonoBehaviour
         if (swiming)
         {
             Swim();
+            oxigen.ActivateOxigen(true);
         }
         else
         {
             Walk();
+            oxigen.ActivateOxigen(false);
         }
 
     }
