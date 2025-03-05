@@ -1,0 +1,11 @@
+t 08
+d 5 -Asistente- Capitán, me temo que estamos nuevamente inmóviles. Sistemas vitales comprometidos.
+d 8 -Asistente-  Análisis ambiental: La fauna local presenta un aumento significativo de hostilidad. Alta probabilidad de encuentros mortales.
+d 5 -tu- Esto ya no es casualidad. Algo no quiere que dejemos este lugar. 
+d 2 -tu- ¿Cuánto necesito esta vez?"
+d 08 -Asistente- Tres componentes. Localización estimada: 500 metros de distancia. Recomendación: máxima precaución.
+d 5 -tu- Entendido. Espero que tengas algo útil para reportar cuando regrese.
+d 4 -Asistente- Abriendo puertas
+m Ve hacia la salida
+a 01 1
+a 00 1

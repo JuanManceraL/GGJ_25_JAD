@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -53,8 +54,9 @@ public class Health : MonoBehaviour
                 UiGameOver.SetActive(true);
                 UiDamage.SetActive(true);
                 alive = false;
-                Time.timeScale = 0;
+                Time.timeScale = 1;
                 StopCoroutine(restoreLife);
+                Invoke("reiniciarNivel", 4f);
                 break;
             case 1:
                 //Dañao
@@ -74,5 +76,10 @@ public class Health : MonoBehaviour
                 UiDamage.SetActive(true);
                 break;
         }
+    }
+
+    void reiniciarNivel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

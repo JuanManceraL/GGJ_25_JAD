@@ -1,0 +1,11 @@
+m Buscar piezas
+a 01 1
+d 5 -Asistente- Para la reparación necesitamos 3 cosas: desarmador y dos tornillos.
+d 5 -Asistente- Están dispersos por la zona, pero el terreno está bastante complicado. 
+d 1 -Tu- Entendido. 
+t 02 
+m 2 tornillos y destornillador
+w misionuno
+a 00 1
+a 01 0
+

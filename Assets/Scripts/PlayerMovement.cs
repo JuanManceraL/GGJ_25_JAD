@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
@@ -47,11 +48,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject menuPause;
 
 
+
     void Awake()
     {
         playerInput = gameObject.GetComponent<PlayerInput>();
         characterController = gameObject.GetComponent<CharacterController>();
         inventory = gameObject.GetComponent<Inventory>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         oxigen = gameObject.GetComponent<Oxigen>();
 
@@ -67,8 +72,7 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("Mov - Vect x: " + movementInput.x + "      Vect y: " + movementInput.y);
         //Debug.Log("Look - Vect x: " + lookInput.x + "      Vect y: " + lookInput.y);
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        
 
         RotateCamera();
         SelectedObject();
@@ -99,6 +103,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (playerInput.actions["Pause"].WasPressedThisFrame())
+        {
+            InvPausa();
+        }
+
         if (swiming)
         {
             Swim();
@@ -112,6 +121,31 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public void InvPausa()
+    {
+        if (menuPause.activeSelf)
+        {
+            menuPause.SetActive(false);
+            Time.timeScale = 1f;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            menuPause.SetActive(true);
+            Time.timeScale = 0f;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+
+    public void SalirAMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     private void InvertMissions()
     {
 
@@ -119,7 +153,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void SelectedObject()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit hit;        
 
         if (Physics.Raycast(ray, out hit, RangeDetection, InteractableLayer))

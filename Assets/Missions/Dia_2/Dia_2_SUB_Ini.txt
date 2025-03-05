@@ -1,0 +1,11 @@
+t 08
+d 8 -Asistente- Buenos días, Capitán. Lamentablemente, la nave presenta nuevamente fallas críticas en los sistemas de propulsión.
+d 8 -Asistente- Análisis ambiental: Se detecta un aumento de actividad en la fauna local. Algunos especímenes podrían comportarse agresivamente.
+d 5 -tu- ¿Más problemas? Genial. Supongo que salir otra vez no es negociable.
+d 08 -Asistente- Negativo. Componentes necesarios para reparaciones localizados a 300 metros de la nave. Se recomienda precaución.
+d 2 -tu- Precaución, dice... 
+d 4 -tu- Me aseguraré de no convertirme en el almuerzo de esos peces hostiles. 
+d 4 -Asistente- Abriendo puertas
+m Ve hacia la salida
+a 01 1
+a 00 1

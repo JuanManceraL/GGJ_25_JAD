@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.IO;
 using System;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text missionsBox;
     [SerializeField] private GameObject[] objectsToActivate;
     private string lastMission;
+    [SerializeField] private Animator animFade;
+    [SerializeField] private PlayerInput playerInput;
 
+    private bool dialoguing;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,6 +31,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(reader.ReadLine());
         reader.Close();
         */
+
         dialogueManager = gameObject.GetComponent<DialogueManager>();
 
         missions = missionsText.text.Split('\n');
@@ -45,6 +51,11 @@ public class GameManager : MonoBehaviour
             nextM = false;
             NextMission();
         }
+
+        if (playerInput.actions["Next"].WasPressedThisFrame() && dialoguing)
+        {
+            NextMission();
+        }
     }
 
     public void NextMission()
@@ -61,7 +72,7 @@ public class GameManager : MonoBehaviour
          * m (actions: number a/d)
             m (2,0)
          * */
-
+        dialoguing = false;
         switch (actualMission[0])
         {
             case 'm':
@@ -72,6 +83,7 @@ public class GameManager : MonoBehaviour
                 break;
             case 'd':
                 //Debug.Log("Dialogue: " + actualMission.Substring(4) + "\nDetener en:" + actualMission[2]);
+                dialoguing = true;
                 dialogueManager.ShowText(actualMission.Substring(2));
                 break;
             case 't':
@@ -102,10 +114,21 @@ public class GameManager : MonoBehaviour
                 //Debug.Log("Wait until: " + actualMission.Substring(2));
                 lastMission = actualMission.Substring(2);
                 break;
+            case 'l':
+                animFade.SetTrigger("Fade");
+                Invoke("LoadNewScene", int.Parse(actualMission[2].ToString() + actualMission[3]));
+                break;
             default:
                 break;
         }
     }
+
+    private void LoadNewScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+
 
     string GetDifference(string str1, string str2)
     {

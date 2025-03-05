@@ -1,0 +1,5 @@
+t 08
+d 10 -Tu- ¡Ya estuvo! No pienso volver a pasar por esto. Deja todo listo. Abandonaremos esta zona en cuanto terminemos las reparaciones.
+d 04 -Asistente- Entendido, Capitán. Preparativos en curso. 
+d 06 -Asistente- Advirtiendo: patrones de las fallas sugieren intervención externa. Quizás no estemos solos.
+d 02 -tu- ... No me digas eso ahora.

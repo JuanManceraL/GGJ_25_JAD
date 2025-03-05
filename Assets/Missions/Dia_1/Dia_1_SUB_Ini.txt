@@ -1,0 +1,12 @@
+t 08
+d 13 -Asistente- Buenos días, Capitan. Hemos alcanzado una profundidad de 2,000 metros. Sistemas principales funcionando al 78%. 
+d 10 -Asistente- Anomalías detectadas en el reactor. La nave esta inmóvil. Se requiere reparación inmediata.
+d 5 -Tu- Genial... Justo lo que necesitaba. Que tan grave es?
+d 15 -Asistente- Diagnostico: se necesitan tres componentes para reparar la falla. Están disponibles en las cercanías, pero tenga cuidado, la visibilidad es limitada.
+d 8 -Tu- Perfecto. Solo sera un paseo rápido, Verdad? Que podría salir mal...
+d 13 -Asistente- No es solo un paseo rápido. Recuerda que el oxígeno es limitado. Sin embargo, hay una buena noticia: 
+d 10 -Asistente- los peces pueden ser tu salvación… o tu destrucción. Recuerda que tienes el succionador; utilízalo."
+d 4 -Asistente- Abriendo puertas
+m Ve hacia la salida
+a 01 1
+a 00 1

@@ -1,0 +1,4 @@
+t 05
+d 07 -Tu- ¡Listo! Todo reparado. Espero no volver a hacer esto pronto
+d 07 -Asistente- Reparaciones completas. Nave lista para reanudar operaciones. Buen trabajo.
+l 02

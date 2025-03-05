@@ -26,13 +26,13 @@ public class Inventory : MonoBehaviour
 
         switch (numObj)
         {
-            case "Lámpara":
+            case "Destornillador":
                 obj1[0].SetActive(true);
                 break;
-            case "Manivela":
+            case "Tornillo1":
                 obj1[1].SetActive(true);
                 break;
-            case "RecolectorDeOxigeno":
+            case "Tornillo2":
                 obj1[2].SetActive(true);
                 break;
             case "Soldador":

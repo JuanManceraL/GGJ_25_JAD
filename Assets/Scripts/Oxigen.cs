@@ -31,6 +31,10 @@ public class Oxigen : MonoBehaviour
         {
             healthPlayer.Damage();
         }
+        if (actualOxigen > 100)
+        {
+            actualOxigen = 100;
+        }
     }
 
     public void ActivateOxigen(bool desicion)
